@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ResponseHandlerMiddleware } from 'src/common/middleware/ResponseHandlerMiddleware';
-import { ResponseHandlerMiddlewareProvider } from 'src/common/middleware/ResponseHandlerMiddlewareProvider';
-import { Request, Response } from '@nestjs/common';
-import { Res } from '@nestjs/common';
 
 export interface ApiResponse<T> {
     success: boolean;
@@ -13,17 +10,15 @@ export interface ApiResponse<T> {
 
 @Injectable()
 export class UsersService {
-    private readonly responseHandler: ResponseHandlerMiddleware;
-    res: any;
+    private responseHandler: ResponseHandlerMiddleware;
 
-    constructor(responseHandlerMiddlewareProvider: ResponseHandlerMiddlewareProvider) {
-        this.responseHandler = responseHandlerMiddlewareProvider.getMiddlewareInstance();
-        this.res = Response
+    constructor() {
+        this.responseHandler = new ResponseHandlerMiddleware();
     }
 
     async signup(): Promise<ApiResponse<{ message: string }>> {
         const data = {
-            message: 'hello',
+            message: 'hello2',
             option: 'Everythinbg up to date'
         };
 
